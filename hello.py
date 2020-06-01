@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import os 
-from flask_alchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -15,6 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 'sqlite:///' + os.path.join(basedir,'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'hard to guess string'
+db = SQLAlchemy(app)
 
 bootstrap = Bootstrap(app)
 moment = Moment(app)
