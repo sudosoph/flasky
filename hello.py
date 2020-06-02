@@ -9,6 +9,7 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_mail import Mail
+from threading import Thread
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
