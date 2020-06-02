@@ -7,6 +7,8 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import os 
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_mail import Mail
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -15,10 +17,17 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
 'sqlite:///' + os.path.join(basedir,'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'hard to guess string'
-db = SQLAlchemy(app)
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TSL'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
+mail = Mail(app)
 
 # Role and User Model Definitions
 class Role(db.Model):
